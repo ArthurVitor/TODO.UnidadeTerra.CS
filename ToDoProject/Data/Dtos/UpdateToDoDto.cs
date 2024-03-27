@@ -3,7 +3,7 @@ using ToDoProject.Enums;
 
 namespace ToDoProject.Data.Dtos;
 
-public class CreateToDoDto
+public class UpdateToDoDto
 {
     [Required(ErrorMessage = "É necessário preencher esse campo")]
     public string Descricao { get; set; }

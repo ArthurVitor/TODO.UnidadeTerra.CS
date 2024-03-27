@@ -104,3 +104,4 @@ C:\Users\arthu\OneDrive\Área de Trabalho\TODO.UnidadeTerra.CS\ToDoProject\obj\D
 C:\Users\arthu\OneDrive\Área de Trabalho\TODO.UnidadeTerra.CS\ToDoProject\obj\Debug\net8.0\ref\ToDoProject.dll
 C:\Users\arthu\OneDrive\Área de Trabalho\TODO.UnidadeTerra.CS\ToDoProject\bin\Debug\net8.0\AutoMapper.dll
 C:\Users\arthu\OneDrive\Área de Trabalho\TODO.UnidadeTerra.CS\ToDoProject\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\arthu\OneDrive\Área de Trabalho\TODO.UnidadeTerra.CS\ToDoProject\obj\Debug\net8.0\ToDoProject.sourcelink.json

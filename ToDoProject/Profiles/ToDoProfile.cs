@@ -10,5 +10,6 @@ public class ToDoProfile : Profile
     {
         CreateMap<CreateToDoDto, ToDoModel>();
         CreateMap<ToDoModel, ReadToDoDto>();
+        CreateMap<UpdateToDoDto, ToDoModel>();
     }
 }

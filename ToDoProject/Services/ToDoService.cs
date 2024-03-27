@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using ToDoProject.Data;
 using ToDoProject.Data.Dtos;
+using ToDoProject.Enums;
 using ToDoProject.Models;
 using ToDoProject.Services.Interfaces;
 
@@ -33,25 +34,55 @@ public class ToDoService : IToDoService
     public IActionResult GetToDoById(int id)
     {
         ToDoModel toDo = _context.ToDos.Find(id);
-        if (toDo == null)
-        {
-            return new NotFoundResult();
-        }
+        if (toDo == null) return new NotFoundResult();
 
         ReadToDoDto dto = _mapper.Map<ReadToDoDto>(toDo);
         return new OkObjectResult(dto);
     }
-
-
-    public IEnumerable<object> GetToDos(string plataforma, int skip, int take)
+    
+    public IEnumerable<object> GetToDos(string plataforma, int skip, int take, PrioridadeEnum prioridade, StatusEnum status)
     {
-        if (plataforma == "mobile")
+        IEnumerable<ToDoModel> models = _context.ToDos.Where(todo => todo.StatusEnum == status || todo.PrioridadeEnum == prioridade).Skip(skip).Take(take);
+
+        if (plataforma.ToLower().Equals("mobile"))
         {
-            return _context.ToDos.Select(todo => new { todo.Descricao, todo.StatusEnum }).Skip(skip).Take(take);
+            return models.Select(todo => new { todo.Descricao, todo.StatusEnum });
         }
-        
-        return _mapper.Map<List<ReadToDoDto>>(_context.ToDos).Skip(skip).Take(take);
+        else
+        {
+            return models;
+        }
     }
-    
-    
+
+    public IActionResult UpdateById(int id, UpdateToDoDto dto)
+    {
+        ToDoModel model = _context.ToDos.FirstOrDefault(todo => todo.Id == id);
+        if (model == null) return new NotFoundResult();
+
+        _mapper.Map(dto, model);
+        _context.SaveChanges();
+
+        return new NoContentResult();
+    }
+
+    public IActionResult UpdateTodoStatus(int id)
+    {
+        ToDoModel model = _context.ToDos.FirstOrDefault(todo => todo.Id == id);
+        if (model == null) return new NotFoundResult();
+
+        model.StatusEnum = model.StatusEnum == StatusEnum.Concluída ? StatusEnum.Pendente : StatusEnum.Concluída;
+        _context.SaveChanges();
+
+        return new NoContentResult();
+    }
+
+    public IActionResult DeleteToDo(int id)
+    {
+        ToDoModel model = _context.ToDos.Find(id);
+        if (model == null) return new NotFoundResult();
+
+        _context.Remove(model);
+        _context.SaveChanges();
+        return new NoContentResult();
+    }
 }
