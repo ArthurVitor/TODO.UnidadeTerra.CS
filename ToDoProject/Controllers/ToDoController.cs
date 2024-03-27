@@ -56,4 +56,15 @@ public class ToDoController : ControllerBase
     {
         return _service.DeleteToDo(id);
     }
+    
+    [Route("{*url}", Order = int.MaxValue)]
+    [HttpGet]
+    [HttpPut]
+    [HttpPost]
+    [HttpDelete]
+    [HttpPatch]
+    public IActionResult NotFoundFallback()
+    {
+        return NotFound("Invalid Route");
+    }
 }
